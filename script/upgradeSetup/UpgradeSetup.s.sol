@@ -170,22 +170,22 @@ contract UpgradeSetup is Script, StoryProtocolCoreAddressManager, StoryProtocolP
 
         // Module Registry
         // Upgrading Licensing Hooks requires both removeModule and registerModule
-        selectors = new bytes4[](2);
-        selectors[0] = ModuleRegistry.removeModule.selector;
-        selectors[1] = bytes4(keccak256("registerModule(string,address)"));
-        calls.push(
-            _getScheduleCalldata(
-                protocolAccessManagerAddr,
-                abi.encodeCall(
-                    AccessManager.setTargetFunctionRole,
-                    (
-                        moduleRegistryAddr,
-                        selectors,
-                        ProtocolAdmin.UPGRADER_ROLE
-                    )
-                )
-            )
-        );
+        // selectors = new bytes4[](2);
+        // selectors[0] = ModuleRegistry.removeModule.selector;
+        // selectors[1] = bytes4(keccak256("registerModule(string,address)"));
+        // calls.push(
+        //     _getScheduleCalldata(
+        //         protocolAccessManagerAddr,
+        //         abi.encodeCall(
+        //             AccessManager.setTargetFunctionRole,
+        //             (
+        //                 moduleRegistryAddr,
+        //                 selectors,
+        //                 ProtocolAdmin.UPGRADER_ROLE
+        //             )
+        //         )
+        //     )
+        // );
     }
 
     function _prepareExecuteCalls() internal {
@@ -305,22 +305,22 @@ contract UpgradeSetup is Script, StoryProtocolCoreAddressManager, StoryProtocolP
 
         // Module Registry
         // Upgrading Licensing Hooks requires both removeModule and registerModule
-        selectors = new bytes4[](2);
-        selectors[0] = ModuleRegistry.removeModule.selector;
-        selectors[1] = bytes4(keccak256("registerModule(string,address)"));
-        calls.push(
-            _getExecuteCalldata(
-                protocolAccessManagerAddr,
-                abi.encodeCall(
-                    AccessManager.setTargetFunctionRole,
-                    (
-                        moduleRegistryAddr,
-                        selectors,
-                        ProtocolAdmin.UPGRADER_ROLE
-                    )
-                )
-            )
-        );
+        // selectors = new bytes4[](2);
+        // selectors[0] = ModuleRegistry.removeModule.selector;
+        // selectors[1] = bytes4(keccak256("registerModule(string,address)"));
+        // calls.push(
+        //     _getExecuteCalldata(
+        //         protocolAccessManagerAddr,
+        //         abi.encodeCall(
+        //             AccessManager.setTargetFunctionRole,
+        //             (
+        //                 moduleRegistryAddr,
+        //                 selectors,
+        //                 ProtocolAdmin.UPGRADER_ROLE
+        //             )
+        //         )
+        //     )
+        // );
     }
 
     function _getScheduleCalldata(address target, bytes memory data) internal returns (bytes memory) {
@@ -430,7 +430,7 @@ contract UpgradeSetup is Script, StoryProtocolCoreAddressManager, StoryProtocolP
             AccessManager(protocolAccessManagerAddr).getTargetFunctionRole(
                 moduleRegistryAddr,
                 moduleSelectors[0]
-            ) == ProtocolAdmin.UPGRADER_ROLE,
+            ) == ProtocolAdmin.PROTOCOL_ADMIN_ROLE,
             "ModuleRegistry: UPGRADER_ROLE not set for removeModule"
         );
 
@@ -438,7 +438,7 @@ contract UpgradeSetup is Script, StoryProtocolCoreAddressManager, StoryProtocolP
             AccessManager(protocolAccessManagerAddr).getTargetFunctionRole(
                 moduleRegistryAddr,
                 moduleSelectors[1]
-            ) == ProtocolAdmin.UPGRADER_ROLE,
+            ) == ProtocolAdmin.PROTOCOL_ADMIN_ROLE,
             "ModuleRegistry: UPGRADER_ROLE not set for registerModule"
         );
 
